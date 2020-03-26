@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head><title>Get User Access Token</title></head>
+
+<body>
+
+  <h1>Get a Access Token using JavaScript SDK</h1>
+
+ <p><a href="#" onClick="logInWithFacebook()">Log In with the JavaScript SDK</a></p>
+
+
+  <script>
+
+  <!-- Log User in -->
+
+  logInWithFacebook = function() {
+    FB.login(function(response) {
+      if (response.authResponse) {
+        alert('You are logged in & cookie set!');
+        // Redirect the user to token.php file to use the token
+        window.location.href = "C:/Users/tulio/Desktop/token.php";
+      } else {
+        alert('User canceled login or did not fully authorize.');
+      }
+    });
+    return false;
+  };
+
+  <!-- Initialize JS SDK to use JS helper to get access token -->
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId: '1552416164886649',
+      cookie: true, // This is important, it's not enabled by default
+      version: 'v5.0'
+    });
+  };
+
+  (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  <!-- Get user access token -->
+
+FB.getLoginStatus(function(response) {
+  if (response.status === 'connected') {
+    var accessToken = response.authResponse.accessToken;
+  }
+} );
+
+
+</script>
+
+</body>
+</html>
